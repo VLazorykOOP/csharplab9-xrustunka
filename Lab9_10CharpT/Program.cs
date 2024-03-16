@@ -1,8 +1,46 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Lab#9  or  Lab#10");
-//  За бажанням студента для задач можна створювати консольний проект або WinForm
-// Бажано для задач лаб. робіт створити окремі класи
-// Виконання  виконати в стилі багатозаданості :
-//   Lab9T2  lab9task2 = new Lab9T2; lab9task2.Run();
-// При бажанні можна створити багатозадачний режим виконання задач.
+﻿//"C:\\Users\\Христина\\source\\repos\\lab9\\input.txt";
+using System;
+using System.IO;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main1()
+    {
+        // Шлях до вхідного файлу
+        string inputFilePath = "C:\\Users\\Христина\\source\\repos\\lab9\\input.txt";
+        // Шлях до вихідного файлу
+        string outputFilePath = "C:\\Users\\Христина\\source\\repos\\lab9\\output.txt";
+
+        // Створюємо новий стек для зберігання цифр
+        Stack<int> numbersStack = new Stack<int>();
+
+        // Читаємо цифри з вхідного файлу та додаємо їх у стек
+        using (StreamReader sr = new StreamReader(inputFilePath))
+        {
+            string inputDigits = sr.ReadLine();
+            foreach (char digitChar in inputDigits)
+            {
+                if (char.IsDigit(digitChar))
+                {
+                    int digit = digitChar - '0'; // Конвертуємо символ у цифру
+                    numbersStack.Push(digit);
+                }
+            }
+        }
+
+        // Відкриваємо файл для запису у зворотньому порядку
+        using (StreamWriter sw = new StreamWriter(outputFilePath))
+        {
+            // Записуємо цифри зі стеку у файл у зворотньому порядку
+            while (numbersStack.Count > 0)
+            {
+                int digit = numbersStack.Pop();
+                sw.Write(digit);
+            }
+        }
+
+        Console.WriteLine("Операція завершена. Результат записано у файл output.txt.");
+    }
+}
 
